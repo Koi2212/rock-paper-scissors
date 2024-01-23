@@ -1,0 +1,47 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    background-color: gray;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 40px;
+    height: 600px;
+}
+
+h1 {
+    font-size: 80px;
+}
+
+h3 {
+    background-color: lightblue;
+    padding: 40px;
+    text-align: center;
+    text-justify: auto;
+}
+
+.vs {
+    font-size: 60px;
+}
+
+.container-game {
+    height: 200px;
+    display: flex;
+    gap: 100px;
+    font-size: 40px
+}
+
+.choice-container {
+    display: flex;
+    gap: 100px;
+    font-size: 36px;
+}
+
+.option p {
+    text-align: center;
+    font-size: 24px;
+}

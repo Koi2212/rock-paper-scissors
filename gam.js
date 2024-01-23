@@ -1,5 +1,5 @@
 function getComputerChoice() {
-    switch(Math.floor(Math.random() * 3)) {
+    switch (Math.floor(Math.random() * 3)) {
         case 0:
             return "rock";
         case 1:
@@ -28,12 +28,12 @@ function game() {
     let computerCore = 0;
     for (let i = 1; i <= 5; i++) {
         console.log(`Round ${i}`);
-        let result = playRound(window.prompt("Your choice ?",""), getComputerChoice());
+        let result = playRound(window.prompt("Your choice ?", ""), getComputerChoice());
         if (result.charAt(4) == "w") {
             playerCore++;
         } else if (result.charAt(4) == "l") {
             computerCore++;
-        } 
+        }
         console.log(result);
     }
     if (playerCore > computerCore) {
@@ -44,3 +44,18 @@ function game() {
         console.log("Tie game!")
     }
 }
+
+let option = document.querySelector(".option");
+
+option.addEventListener = ('click', (e) => {
+    switch (e.target.innerText) {
+        case "Rock":
+            prompt("Rock");
+            break;
+        case "Paper":
+            prompt("Paper");
+            break;
+        case "Scissors":
+            prompt("Scissors");
+    }
+})
