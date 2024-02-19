@@ -1,61 +1,75 @@
-function getComputerChoice() {
-    switch (Math.floor(Math.random() * 3)) {
-        case 0:
-            return "rock";
-        case 1:
-            return "paper";
-        case 2:
-            return "scissors";
-    }
+function computerChoice() {
+  return Math.trunc(Math.random() * 3) - 1;
 }
 
-function playRound(playerSelection, computerSelection) {
-    if (playerSelection == computerSelection) {
-        return "Tie !";
-    } else if (
-        playerSelection == "rock" && computerSelection == "scissors" ||
-        playerSelection == "paper" && computerSelection == "rock" ||
-        playerSelection == "scissors" && computerSelection == "paper"
-    ) {
-        return `You win! ${playerSelection} beats ${computerSelection}`;
-    } else {
-        return `You lose! ${computerSelection} beats ${playerSelection}`;
-    }
+function calWinnerBaseOnUser(computerChoice, userChoice) {
+  if (computerChoice === userChoice) {
+    return "Tie";
+  } else if (
+    computerChoice > userChoice ||
+    computerChoice - userChoice === -2
+  ) {
+    return "Lose";
+  } else {
+    return "Win";
+  }
 }
+
+let userScore = 0;
+let computerScore = 0;
 
 function game() {
-    let playerCore = 0;
-    let computerCore = 0;
-    for (let i = 1; i <= 5; i++) {
-        console.log(`Round ${i}`);
-        let result = playRound(window.prompt("Your choice ?", ""), getComputerChoice());
-        if (result.charAt(4) == "w") {
-            playerCore++;
-        } else if (result.charAt(4) == "l") {
-            computerCore++;
-        }
-        console.log(result);
-    }
-    if (playerCore > computerCore) {
-        console.log("You win the final !");
-    } else if (playerCore < computerCore) {
-        console.log("You lose the final !");
+  tempResult = document.querySelector(".tempResult");
+  tempComScore = document.querySelector(".tempComScore");
+  tempUserScore = document.querySelector(".tempUserScore");
+  for (let i = 0; i < 5; i++) {
+    let result = calWinnerBaseOnUser(computerChoice(), getUserChoice());
+    if (result === "Win") {
+      userScore++;
+      tempUserScore.textContent = "Your Score: " + userScore;
+      tempResult.textContent = "You got one more!";
+    } else if (result === "Lose") {
+      computerScore++;
+      tempComScore.textContent = "Computer Score: " + computerScore;
+      tempResult.textContent = "Computer got one more!";
     } else {
-        console.log("Tie game!")
+      tempResult.textContent = "Nothing happen!";
     }
+  }
+  if (userScore === computerScore) {
+    tempResult.textContent = "Tie!";
+  } else if (userScore > computerScore) {
+    tempResult.textContent = `You are the winner with ${userScore}!`;
+  } else {
+    tempResult.textContent = `You Lose!`;
+  }
 }
 
-let option = document.querySelector(".option");
-
-option.addEventListener = ('click', (e) => {
-    switch (e.target.innerText) {
-        case "Rock":
-            prompt("Rock");
-            break;
-        case "Paper":
-            prompt("Paper");
-            break;
-        case "Scissors":
-            prompt("Scissors");
+function getUserChoice() {
+  document.querySelector(".choices").addEventListener("click", function (e) {
+    if (e.target.className === "keo") {
+      return -1;
     }
-})
+    if (e.target.className === "bua") {
+      return 0;
+    }
+    if (e.target.className === "bao") {
+      return 1;
+    }
+  });
+}
+
+document.querySelector("button").addEventListener("click", function () {
+  userScore = 0;
+  computerScore = 0;
+  tempComScore.textContent = "Computer Score: " + computerScore;
+  tempUserScore.textContent = "Your Score: " + userScore;
+  tempResult.textContent = "Let begin the game!";
+});
+
+document.querySelector(".choices").addEventListener("click", function () {
+  if (userScore + computerScore === 5) {
+    return;
+  }
+  game();
+});
